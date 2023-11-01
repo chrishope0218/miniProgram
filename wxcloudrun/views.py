@@ -1,7 +1,6 @@
 from datetime import datetime
 from flask import render_template, request
 from run import app
-import ddddocr
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
@@ -65,12 +64,3 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
-
-
-@app.route('/api/ddddocr', methods=['GET'])
-def get_ddddocr():
-    ocr = ddddocr.DdddOcr()
-    with open("C:\\Users\\Admin\\Desktop\\111.jpg", 'rb') as f:
-        img_bytes = f.read()
-    res = ocr.classification(img_bytes)
-    return make_succ_response(res)
